@@ -1,0 +1,74 @@
+<h3>Subscription Form</h3>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="form-group">
+          <label for="sfEmail">Mail Address</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="sfEmail"
+            ngModel
+            name="sfEmail"
+            required
+            email
+            #sfEmail="ngModel">
+            <span 
+              class="help-block"
+              *ngIf="!sfEmail.valid && sfEmail.touched" >Please enter valid email address</span>
+        </div>
+        <div class="form-group">
+          <label>Subscriptions</label>
+          <select 
+            name="subscription" 
+            id="subscription" 
+            class="form-control"
+            [ngModel]="defaultSubscription">
+            <option value="Basic">Basic</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Pro">Pro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sfPassword">Password</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="sfPassword"
+            required
+            ngModel
+            name="sfPassword"
+            #sfPassword="ngModel">
+          <span 
+            class="help=block"
+            *ngIf="!sfPassword.valid && sfPassword.touched"
+            >Please enter value</span>
+        </div>
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="!f.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="submited">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <h3>Your Data</h3>
+      <p>Mail: {{subscriptionFormData.sfEmail}}</p>
+      <p>Subscription: {{subscriptionFormData.subscription}}</p>
+      <p>Password: {{subscriptionFormData.sfPassword}}</p>
+    </div>
+  </div>
